@@ -1,5 +1,11 @@
-<div class="content">
-  <span>podcast-app app is running!</span>
-</div>
+<div class="flex flex-col md:flex-row">
+  <div class="flex flex-1 flex-col h-screen">
+    <app-header></app-header>
 
-<router-outlet></router-outlet>
+    <div class="h-full shadow-inner">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <app-player></app-player>
+</div>
