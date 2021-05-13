@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Voder.Models
 {
-    class VoderContext : DbContext
+    public class VoderContext : DbContext
     {
         public VoderContext(DbContextOptions<VoderContext> options) : base(options)
         {
