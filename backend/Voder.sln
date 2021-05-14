@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5A4BC0AB-F83
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voder", "src\Voder\Voder.csproj", "{16AEA8AC-BAEA-46C8-9D8D-12ADFC19F1CB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{01C973C2-431E-4C71-9C46-9104B4180743}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voder.IntegrationTests", "test\Voder.IntegrationTests\Voder.IntegrationTests.csproj", "{C97389BB-56AC-47F3-B43E-EEE6C334428D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +36,21 @@ Global
 		{16AEA8AC-BAEA-46C8-9D8D-12ADFC19F1CB}.Release|x64.Build.0 = Release|Any CPU
 		{16AEA8AC-BAEA-46C8-9D8D-12ADFC19F1CB}.Release|x86.ActiveCfg = Release|Any CPU
 		{16AEA8AC-BAEA-46C8-9D8D-12ADFC19F1CB}.Release|x86.Build.0 = Release|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Debug|x64.Build.0 = Debug|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Debug|x86.Build.0 = Debug|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Release|x64.ActiveCfg = Release|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Release|x64.Build.0 = Release|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Release|x86.ActiveCfg = Release|Any CPU
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{16AEA8AC-BAEA-46C8-9D8D-12ADFC19F1CB} = {5A4BC0AB-F832-4EC8-96BD-223BF08C810D}
+		{C97389BB-56AC-47F3-B43E-EEE6C334428D} = {01C973C2-431E-4C71-9C46-9104B4180743}
 	EndGlobalSection
 EndGlobal
