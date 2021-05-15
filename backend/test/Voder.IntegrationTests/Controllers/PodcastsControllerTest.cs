@@ -5,33 +5,34 @@ using Newtonsoft.Json;
 using Xunit;
 using Voder.Models;
 using Microsoft.Extensions.DependencyInjection;
+using AutoFixture;
+using System.Linq;
 
 namespace Voder.IntegrationTests.Controllers
 {
     public class PodcastsControllerTest : IClassFixture<TestWebApplicationFactory<Startup>>
     {
-        private readonly TestWebApplicationFactory<Startup> factory;
+        private readonly VoderContext dbContext;
         private readonly HttpClient client;
+        private readonly Fixture fixture;
 
         public PodcastsControllerTest(TestWebApplicationFactory<Startup> factory)
         {
-            this.factory = factory;
+            var scopeFactory = factory.Services.GetService<IServiceScopeFactory>();
+            var scope = scopeFactory.CreateScope();
+            this.dbContext = scope.ServiceProvider.GetService<VoderContext>();
+
             this.client = factory.CreateClient();
+
+            this.fixture = new Fixture();
         }
 
         [Fact]
         public async Task CanGetPodcasts()
         {
-            var scopeFactory = this.factory.Services.GetService<IServiceScopeFactory>();
-            var scope = scopeFactory.CreateScope();
-            var context = scope.ServiceProvider.GetService<VoderContext>();
-
-            var p = new Podcast
-            {
-                FeedUrl = "http://example.com",
-            };
-            context.Podcasts.Add(p);
-            await context.SaveChangesAsync();
+            var testPodcast = this.fixture.Create<Podcast>();
+            this.dbContext.Podcasts.Add(testPodcast);
+            await this.dbContext.SaveChangesAsync();
 
             var httpResponse = await this.client.GetAsync("/Podcasts");
             httpResponse.EnsureSuccessStatusCode();
@@ -39,7 +40,8 @@ namespace Voder.IntegrationTests.Controllers
             var stringResponse = await httpResponse.Content.ReadAsStringAsync();
             var podcasts = JsonConvert.DeserializeObject<IEnumerable<Podcast>>(stringResponse);
 
-            Assert.Contains(podcasts, p => p.FeedUrl == "http://example.com");
+            Assert.Single(podcasts);
+            Assert.Contains(podcasts, p => p.FeedUrl == testPodcast.FeedUrl);
         }
     }
 }
