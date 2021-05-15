@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Voder.Models;
 
 namespace Voder
 {
@@ -26,6 +28,8 @@ namespace Voder
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<VoderContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("VoderContext")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -43,8 +47,6 @@ namespace Voder
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Voder v1"));
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
