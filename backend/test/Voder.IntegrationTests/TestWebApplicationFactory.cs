@@ -35,22 +35,8 @@ namespace Voder.IntegrationTests
                 {
                     var scopedServices = scope.ServiceProvider;
                     var db = scopedServices.GetRequiredService<VoderContext>();
-                    var logger = scopedServices.GetRequiredService<ILogger<TestWebApplicationFactory<TStartup>>>();
 
                     db.Database.EnsureCreated();
-
-                    try
-                    {
-                        SeedData.PopulateTestData(db);
-                    }
-                    catch (Exception e)
-                    {
-                        logger.LogError(
-                            CheckoutException.Canceled,
-                            "An error occured seeding the database #{Message}",
-                            e.Message
-                        );
-                    }
                 }
             });
         }
