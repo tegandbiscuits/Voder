@@ -1,17 +1,18 @@
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Xunit;
-using Voder.Models;
-using AutoFixture;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using AutoFixture;
+using Voder.Models;
+using Xunit;
 
 namespace Voder.IntegrationTests.Controllers
 {
     public class PodcastsControllerTest : AbstractControllerTest
     {
-        public PodcastsControllerTest(TestWebApplicationFactory<Startup> factory) : base(factory)
+        public PodcastsControllerTest(TestWebApplicationFactory<Startup> factory)
+            : base(factory)
         {
         }
 

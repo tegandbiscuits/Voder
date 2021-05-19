@@ -15,7 +15,7 @@ namespace Voder.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FeedUrl = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    CoverUrl = table.Column<string>(type: "text", nullable: true)
+                    CoverUrl = table.Column<string>(type: "text", nullable: true),
                 },
                 constraints: table =>
                 {

@@ -4,7 +4,8 @@ namespace Voder.Models
 {
     public class VoderContext : DbContext
     {
-        public VoderContext(DbContextOptions<VoderContext> options) : base(options)
+        public VoderContext(DbContextOptions<VoderContext> options)
+            : base(options)
         {
         }
 

@@ -1,16 +1,16 @@
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Xunit;
-using Voder.Models;
-using Microsoft.Extensions.DependencyInjection;
-using AutoFixture;
-using System.Text;
 using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using AutoFixture;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Voder.Models;
+using Xunit;
 
 namespace Voder.IntegrationTests
 {
-    abstract public class AbstractControllerTest : IClassFixture<TestWebApplicationFactory<Startup>>, IDisposable
+    public abstract class AbstractControllerTest : IClassFixture<TestWebApplicationFactory<Startup>>, IDisposable
     {
         protected readonly VoderContext dbContext;
         protected readonly HttpClient client;
@@ -32,7 +32,7 @@ namespace Voder.IntegrationTests
             this.dbContext.Database.EnsureDeleted();
         }
 
-        protected async Task<T> SendRequest<T>(String path, HttpMethod method = null, Object body = null)
+        protected async Task<T> SendRequest<T>(string path, HttpMethod method = null, object body = null)
         {
             var request = new HttpRequestMessage
             {
