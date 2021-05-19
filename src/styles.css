@@ -3,3 +3,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  .btn {
+    @apply border-2 py-1 px-3 transition;
+  }
+
+  .btn-indigo {
+    @apply border-indigo-500 hover:bg-indigo-500 focus:bg-indigo-500 hover:text-white focus:text-white;
+  }
+
+  .btn-light {
+    @apply border-gray-200 hover:bg-gray-200 focus:bg-gray-200;
+  }
+
+  .btn-green {
+    @apply border-green-500 bg-green-500 hover:bg-green-700 focus:bg-green-700 hover:border-green-700 focus:border-green-700;
+  }
+}

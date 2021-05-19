@@ -1,3 +1,11 @@
-<div class="bg-gray-50 h-14">
-  <p>app-header works!</p>
+<div class="bg-gray-50 h-14 flex justify-end items-center px-6">
+  <button class="btn btn-indigo" (click)="openModal()">
+    Add
+  </button>
 </div>
+
+<app-add-modal
+  *ngIf="isModalVisible"
+  (modalClose)="closeModal()"
+>
+</app-add-modal>

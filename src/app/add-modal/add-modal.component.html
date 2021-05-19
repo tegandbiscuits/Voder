@@ -1,0 +1,26 @@
+<div class="z-20 absolute top-10 bg-gray-100 w-11/12 max-w-screen-md left-0 right-0 m-auto">
+  <div class="flex justify-end p-2">
+    <button title="close" class="btn btn-light" (click)="modalClose.emit()">
+      <i class="las la-times"></i>
+    </button>
+  </div>
+
+  <div class="p-3 pt-0">
+    <form [formGroup]="feedSettings" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col">
+        <label for="feed_url">Feed URL</label>
+        <input type="text" name="feed_url" id="feed_url" formControlName="feedUrl">
+      </div>
+
+      <div>
+        <input type="submit" value="Add Podcast" class="btn btn-green">
+      </div>
+    </form>
+  </div>
+</div>
+
+<div
+  class="bg-black opacity-70 absolute w-screen h-screen z-10 top-0"
+  (click)="modalClose.emit()"
+>
+</div>
