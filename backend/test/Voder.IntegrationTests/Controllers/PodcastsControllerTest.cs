@@ -1,32 +1,18 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Xunit;
 using Voder.Models;
-using Microsoft.Extensions.DependencyInjection;
 using AutoFixture;
 using System.Linq;
 using System.Net;
-using System.Text;
 
 namespace Voder.IntegrationTests.Controllers
 {
-    public class PodcastsControllerTest : IClassFixture<TestWebApplicationFactory<Startup>>
+    public class PodcastsControllerTest : AbstractControllerTest
     {
-        private readonly VoderContext dbContext;
-        private readonly HttpClient client;
-        private readonly Fixture fixture;
-
-        public PodcastsControllerTest(TestWebApplicationFactory<Startup> factory)
+        public PodcastsControllerTest(TestWebApplicationFactory<Startup> factory) : base(factory)
         {
-            var scopeFactory = factory.Services.GetService<IServiceScopeFactory>();
-            var scope = scopeFactory.CreateScope();
-            this.dbContext = scope.ServiceProvider.GetService<VoderContext>();
-
-            this.client = factory.CreateClient();
-
-            this.fixture = new Fixture();
         }
 
         [Fact]
@@ -38,11 +24,7 @@ namespace Voder.IntegrationTests.Controllers
             this.dbContext.Podcasts.Add(this.fixture.Create<Podcast>());
             await this.dbContext.SaveChangesAsync();
 
-            var httpResponse = await this.client.GetAsync("/Podcasts");
-            httpResponse.EnsureSuccessStatusCode();
-
-            var stringResponse = await httpResponse.Content.ReadAsStringAsync();
-            var podcasts = JsonConvert.DeserializeObject<IEnumerable<Podcast>>(stringResponse);
+            var podcasts = await this.SendRequest<IEnumerable<Podcast>>("/Podcasts");
 
             Assert.Equal(2, podcasts.Count());
             Assert.Contains(podcasts, p => p.FeedUrl == testPodcast.FeedUrl);
@@ -56,11 +38,7 @@ namespace Voder.IntegrationTests.Controllers
             this.dbContext.Podcasts.Add(testPodcast);
             await this.dbContext.SaveChangesAsync();
 
-            var httpResponse = await this.client.GetAsync($"/Podcasts/{testPodcast.Id}");
-            httpResponse.EnsureSuccessStatusCode();
-
-            var stringResponse = await httpResponse.Content.ReadAsStringAsync();
-            var returnedPodcast = JsonConvert.DeserializeObject<Podcast>(stringResponse);
+            var returnedPodcast = await this.SendRequest<Podcast>($"/Podcasts/{testPodcast.Id}");
 
             Assert.Equal(testPodcast.Id, returnedPodcast.Id);
         }
@@ -80,11 +58,10 @@ namespace Voder.IntegrationTests.Controllers
             var podcastCount = this.dbContext.Podcasts.Count();
 
             var body = new { FeedUrl = "http://test.com" };
-            var httpContent = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-            var httpResponse = await this.client.PostAsync("/Podcasts", httpContent);
-            httpResponse.EnsureSuccessStatusCode();
+            var createdPodcast = await this.SendRequest<Podcast>("/Podcasts", method: HttpMethod.Post, body: body);
 
             Assert.Equal(podcastCount + 1, this.dbContext.Podcasts.Count());
+            Assert.True(createdPodcast.Id > 0);
         }
 
         [Fact]
@@ -95,13 +72,9 @@ namespace Voder.IntegrationTests.Controllers
             this.dbContext.Podcasts.Add(testPodcast);
             await this.dbContext.SaveChangesAsync();
 
-            var deleteResposne = await this.client.DeleteAsync($"/Podcasts/{testPodcast.Id}");
-            deleteResposne.EnsureSuccessStatusCode();
+            await this.SendRequest<object>($"/Podcasts/{testPodcast.Id}", method: HttpMethod.Delete);
 
-            var indexResponse = await this.client.GetAsync("/Podcasts");
-            indexResponse.EnsureSuccessStatusCode();
-            var stringResponse = await indexResponse.Content.ReadAsStringAsync();
-            var podcasts = JsonConvert.DeserializeObject<IEnumerable<Podcast>>(stringResponse);
+            var podcasts = await this.SendRequest<IEnumerable<Podcast>>("/Podcasts");
             Assert.DoesNotContain(podcasts, p => p.Id == testPodcast.Id);
         }
     }
