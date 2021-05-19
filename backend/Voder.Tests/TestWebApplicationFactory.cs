@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Voder.Models;
 
-namespace Voder.IntegrationTests
+namespace Voder.Tests
 {
     public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<Startup>
     {

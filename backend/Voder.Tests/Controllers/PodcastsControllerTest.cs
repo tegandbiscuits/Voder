@@ -7,7 +7,7 @@ using AutoFixture;
 using Voder.Models;
 using Xunit;
 
-namespace Voder.IntegrationTests.Controllers
+namespace Voder.Tests.Controllers
 {
     public class PodcastsControllerTest : AbstractControllerTest
     {

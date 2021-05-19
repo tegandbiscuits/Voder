@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Voder\Voder.csproj" />
+    <ProjectReference Include="..\src\Voder\Voder.csproj" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(ASPNETCORE_ENVIRONMENT)' == 'Test'">
@@ -35,6 +35,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <CodeAnalysisRuleSet>..\..\.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 </Project>

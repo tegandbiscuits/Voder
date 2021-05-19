@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using Voder.Models;
 using Xunit;
 
-namespace Voder.IntegrationTests
+namespace Voder.Tests
 {
     public abstract class AbstractControllerTest : IClassFixture<TestWebApplicationFactory<Startup>>, IDisposable
     {
